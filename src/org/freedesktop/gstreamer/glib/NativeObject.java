@@ -338,14 +338,15 @@ public abstract class NativeObject implements AutoCloseable {
          * and that the Handle will be disposed automatically when the
          * NativeObject is garbage collected.
          * <p>
-         * The default implementation always returns {@code true}. Subclasses
-         * may override this behaviour if required.
+         * The default implementation returns {@code ownsReference}, eg. only
+         * owned references are cached, to avoid memory reuse of not owned
+         * objects. Subclasses may override this behaviour if required.
          *
          * @return true if the NativeObject should be cached and automatically
          * disposed
          */
         public boolean isCacheable() {
-            return true;
+            return ownsReference();
         }
 
         /**
